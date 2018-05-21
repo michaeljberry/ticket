@@ -13,7 +13,7 @@ class ViewConcertListingTest extends TestCase
 
     use DatabaseMigrations;
 
-    public function testUserCanViewAConcertListing()
+    public function test_user_can_view_a_concert_listing()
     {
 
         // Arrange
