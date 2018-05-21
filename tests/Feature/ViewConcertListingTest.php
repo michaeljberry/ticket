@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Concert;
+use Tests\TestCase;
 use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -12,11 +12,7 @@ class ViewConcertListingTest extends TestCase
 {
 
     use DatabaseMigrations;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function testUserCanViewAConcertListing()
     {
 
@@ -44,9 +40,9 @@ class ViewConcertListingTest extends TestCase
         $response->assertSee('The Red Chord');
         $response->assertSee('with Animosity and Lethargy');
         $response->assertSee('December 13, 2016');
-        $response->assertSee('8:00 pm');
+        $response->assertSee('8:00pm');
         $response->assertSee('32.50');
-        $response->assertSee('The Most Pit');
+        $response->assertSee('The Mosh Pit');
         $response->assertSee('123 Example Lane');
         $response->assertSee('Laraville');
         $response->assertSee('ON');
