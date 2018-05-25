@@ -15,7 +15,7 @@ class ViewConcertListingTest extends TestCase
 
     public function test_user_can_view_a_published_concert_listing()
     {
-        $concert = Concert::create([
+        $concert = factory(Concert::class)->states('published')->create([
             'title' => 'The Red Chord',
             'subtitle' => 'with Animosity and Lethargy',
             'date' => Carbon::parse('December 13, 2016 8:00pm'),
@@ -26,7 +26,6 @@ class ViewConcertListingTest extends TestCase
             'state' => 'ON',
             'zip' => '17916',
             'additional_information' => 'For tickets, call (555) 555-5555.',
-            'published_at' => Carbon::parse('-1 week')
         ]);
 
         $response = $this->get('/concerts/' . $concert->id);
@@ -48,9 +47,7 @@ class ViewConcertListingTest extends TestCase
     {
         $this->expectException('Illuminate\Database\Eloquent\ModelNotFoundException');
 
-        $concert = factory(Concert::class)->create([
-            'published_at' => null
-        ]);
+        $concert = factory(Concert::class)->states('unpublished')->create();
         $response = $this->get('/concerts/' . $concert->id);
     }
 }
