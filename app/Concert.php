@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Order;
 use Illuminate\Database\Eloquent\Model;
 
 class Concert extends Model
@@ -27,5 +28,10 @@ class Concert extends Model
     public function getTicketPriceInDollarsAttribute()
     {
         return number_format($this->ticket_price / 100, 2);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
