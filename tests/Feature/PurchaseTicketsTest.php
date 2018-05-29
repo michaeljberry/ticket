@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Concert;
 use Tests\TestCase;
+use App\Billing\PaymentGateway;
 use App\Billing\FakePaymentGateway;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,9 +22,10 @@ class PurchaseTicketsTest extends TestCase
         $concert = factory(Concert::class)->create([
             'ticket_price' => 3250
         ]);
+        $this->app->instance(PaymentGateway::class, $paymentGateway);
 
         $this->json('POST', "/concerts/{$concert->id}/orders", [
-            'email' => 'john@example.com',
+        'email' => 'john@example.com',
             'ticket_quantity' => 3,
             'payment_token' => $paymentGateway->getValidTestToken()
         ]);
@@ -33,7 +35,7 @@ class PurchaseTicketsTest extends TestCase
         $order = $concert->orders()->where('email', 'john@example.com')->first();
         $this->assertNotNull($order);
 
-        $this->assertEquals(3, $order->tickets->count());
+        $this->assertEquals(3, $order->tickets()->count());
 
     }
 }
